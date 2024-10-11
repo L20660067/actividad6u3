@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Convertidor de Unidades</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-image: url('https://png.pngtree.com/background/20230525/original/pngtree-close-up-of-a-speedometer-picture-image_2732154.jpg'); 
+            background-size: cover;
+            background-position: center;
+            margin: 0;
+        }
+        .container {
+            background-color: rgba(255, 255, 255, 0.8);
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            max-width: 400px;
+            text-align: center;
+        }
+        select, input {
+            width: 90%;
+            padding: 10px;
+            margin: 10px 0;
+            font-size: 16px;
+        }
+        h1 {
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Convertidor de Unidades</h1>
+        <input type="number" id="inputValue" placeholder="Ingresa un valor" oninput="convertirUnidades()">
+
+        <label for="inputUnit">Unidad de entrada:</label>
+        <select id="inputUnit" onchange="convertirUnidades()">
+            <option value="metros">Metros</option>
+            <option value="kilometros">Kilómetros</option>
+            <option value="millas">Millas</option>
+        </select>
+
+        <label for="outputUnit">Unidad de salida:</label>
+        <select id="outputUnit" onchange="convertirUnidades()">
+            <option value="metros">Metros</option>
+            <option value="kilometros">Kilómetros</option>
+            <option value="millas">Millas</option>
+        </select>
+
+        <h2>Resultado: <span id="outputValue">0</span></h2>
+    </div>
+
+    <script>
+        function convertirUnidades() {
+            const inputValue = parseFloat(document.getElementById("inputValue").value);
+            const inputUnit = document.getElementById("inputUnit").value;
+            const outputUnit = document.getElementById("outputUnit").value;
+            let valorEnMetros;
+
+            // Convertir el valor de entrada a metros
+            if (inputUnit === "metros") {
+                valorEnMetros = inputValue;
+            } else if (inputUnit === "kilometros") {
+                valorEnMetros = inputValue * 1000;
+            } else if (inputUnit === "millas") {
+                valorEnMetros = inputValue * 1609.34;
+            }
+
+            // Convertir el valor de metros a la unidad de salida
+            let resultado;
+            if (outputUnit === "metros") {
+                resultado = valorEnMetros;
+            } else if (outputUnit === "kilometros") {
+                resultado = valorEnMetros / 1000;
+            } else if (outputUnit === "millas") {
+                resultado = valorEnMetros / 1609.34;
+            }
+
+            // Mostrar el resultado
+            document.getElementById("outputValue").textContent = isNaN(resultado) ? 0 : resultado.toFixed(4);
+        }
+    </script>
+</body>
+</html>
